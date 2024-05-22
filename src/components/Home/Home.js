@@ -67,6 +67,7 @@ const Home = () => {
                 fontFamily: "sans-serif",
                 fontStyle: "italic",
               }}
+              className="home-hunts-name"
             >
               {vibeByNameData?.name}
             </div>

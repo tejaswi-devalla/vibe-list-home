@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { RxDotFilled } from "react-icons/rx";
 import FilterCategories from "../FilterCategories/FilterCategories";
 import ProductsList from "../ProductsList/ProductsList";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import "./AllProducts.css";
 
 const AllProducts = () => {
@@ -11,6 +12,7 @@ const AllProducts = () => {
   const [totalProducts, setTotalProducts] = useState(0);
   const [filterCategories, setFilterCategories] = useState({});
   const [activeFilter, setActiveFilter] = useState({ id: "allData" });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchListingFilters = async () => {
@@ -53,6 +55,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           "https://api.furrl.in/api/v2/listing/getListingProducts",
@@ -89,6 +92,8 @@ const AllProducts = () => {
         }
       } catch (err) {
         console.log("Error Fetching Data: ", err);
+      } finally {
+        setLoading(false);
       }
     };
     if (remainingPages) {
@@ -97,13 +102,14 @@ const AllProducts = () => {
   }, [page, remainingPages, activeFilter]);
   const handleScroll = useCallback(() => {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight &&
-      remainingPages
+      window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 50 &&
+      remainingPages &&
+      !loading
     ) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [remainingPages]);
+  }, [remainingPages, loading]);
 
   useEffect(() => {
     if (remainingPages) {
@@ -157,6 +163,7 @@ const AllProducts = () => {
               return <ProductsList key={index} productData={product} />;
             })}
           </div>
+          {loading && <LoaderSpinner />}
         </div>
       )}
     </>
