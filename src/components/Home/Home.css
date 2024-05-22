@@ -1,0 +1,10 @@
+.home-hunts-cont {
+  display: flex;
+}
+.home-hunts-profile-img {
+  background-attachment: fixed;
+  width: 100%;
+  height: 48vh;
+  object-fit: cover;
+  object-position: top;
+}

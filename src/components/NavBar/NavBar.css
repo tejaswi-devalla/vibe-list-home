@@ -1,0 +1,23 @@
+.navbar-container {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.nav-inside-cont {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav-items-cont {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-items {
+  text-decoration: none;
+  color: #000;
+  padding-right: 20px;
+}
